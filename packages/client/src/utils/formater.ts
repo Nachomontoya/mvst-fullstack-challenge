@@ -1,20 +1,15 @@
-export function intervalToString(inter: number): string {
-  let result: string;
-  var hours: number | string = Math.floor(inter / 3600);
+export function secondsToString(value: number): string {
+  let hours: number | string = Math.floor(value / 3600);
+  let minutes: number | string = Math.floor((value - hours * 3600) / 60);
+  let seconds: number | string = value - hours * 3600 - minutes * 60;
   if (hours < 10) {
     hours = "0" + hours;
   }
-  var minutes: number | string = Math.floor(inter / 60);
   if (minutes < 10) {
     minutes = "0" + minutes;
   }
-  var seconds: number | string = inter;
   if (seconds < 10) {
     seconds = "0" + seconds;
   }
-  if (seconds > 59) {
-    inter = 0;
-  }
-  result = `${hours}:${minutes}:${seconds}`;
-  return result;
+  return hours + ":" + minutes + ":" + seconds;
 }

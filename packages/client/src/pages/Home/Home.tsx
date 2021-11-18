@@ -4,7 +4,8 @@ import Layout from "../../components/Layout";
 import play from "../../assets/play_btn.svg";
 import stop from "../../assets/stop_btn.svg";
 
-import { intervalToString } from "../../utils/formater";
+import { secondsToString } from "../../utils/formater";
+import { getTotalTime } from "../../api/timerApi";
 
 function Home(): JSX.Element {
   const [running, setRunning] = useState<boolean>(false);
@@ -29,6 +30,23 @@ function Home(): JSX.Element {
     setChronoState({ icon: play, currentTime: 0 });
   };
 
+  const loadTotalTimer = async () => {
+    try {
+      const {
+        data: { data },
+      } = await getTotalTime();
+      console.log(data[0].time);
+      setSummatory(data[0].time);
+      setTotalTime(secondsToString(summatory));
+    } catch (error) {
+      window.alert(error);
+    }
+  };
+
+  useEffect(() => {
+    loadTotalTimer();
+  }, []);
+
   useEffect(() => {
     if (running) {
       setChronoState({ ...chronoState, icon: stop });
@@ -46,12 +64,12 @@ function Home(): JSX.Element {
   }, [running]);
 
   useEffect(() => {
-    setCurrentTimer(intervalToString(chronoState.currentTime));
+    setCurrentTimer(secondsToString(chronoState.currentTime));
   }, [chronoState.currentTime]);
 
   useEffect(() => {
     //* this one transform the number into a string to render in a more human mode;
-    setTotalTime(intervalToString(summatory));
+    setTotalTime(secondsToString(summatory));
     console.log(summatory);
   }, [summatory]);
 
