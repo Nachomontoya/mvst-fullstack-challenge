@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout";
+import { useEffect, useState } from "react";
 
 import play from "../../assets/play_btn.svg";
 import stop from "../../assets/stop_btn.svg";
 
 import { secondsToString } from "../../utils/formater";
 import { getTotalTime, updateTotalTime } from "../../api/timerApi";
+import Header from "../../components/Header";
 
 type CurrentTimer = {
   icon: string;
@@ -14,15 +14,14 @@ type CurrentTimer = {
 };
 
 type TotalTimer = {
-  timerId: string;
   time: number;
   timeString: string;
 };
 
 function Home(): JSX.Element {
+  const [darkMode, setDarkMode] = useState(false);
   const [running, setRunning] = useState<boolean>(false);
   const [totalTimer, setTotalTimer] = useState<TotalTimer>({
-    timerId: "",
     time: 0,
     timeString: "00:00:00",
   });
@@ -32,6 +31,12 @@ function Home(): JSX.Element {
     time: 0,
     timeString: "00:00:00",
   });
+
+  const handleMode = () => {
+    setDarkMode((prevState) => {
+      return !prevState;
+    });
+  };
 
   const startChrono = () => {
     setCurrentTimer((prevState) => {
@@ -53,7 +58,6 @@ function Home(): JSX.Element {
         data: { data },
       } = await getTotalTime();
       setTotalTimer({
-        timerId: data[0]._id,
         time: data[0].time,
         timeString: secondsToString(data[0].time),
       });
@@ -75,14 +79,12 @@ function Home(): JSX.Element {
         stopChrono();
       };
     }
-    //* this one is acumulating all the timers when the user stops the current timer;
     setTotalTimer((prevState) => {
       return {
         ...totalTimer,
         time: prevState.time + currentTimer.time,
       };
     });
-    //TODO upload timerText to db;
   }, [running]);
 
   useEffect(() => {
@@ -93,7 +95,6 @@ function Home(): JSX.Element {
   }, [currentTimer.time]);
 
   useEffect(() => {
-    //* this one transform the number into a string to render in a more human mode;
     setTotalTimer({
       ...totalTimer,
       timeString: secondsToString(totalTimer.time),
@@ -102,23 +103,30 @@ function Home(): JSX.Element {
   }, [totalTimer.time]);
 
   return (
-    <Layout>
-      <div className="d-flex flex-column difference text-light">
-        <h1 className="mb-4">{totalTimer.timeString}</h1>
-        <button
-          type="button"
-          className="btn btn-light"
-          onClick={() => setRunning(!running)}
-        >
-          <img
-            src={currentTimer.icon}
-            alt={currentTimer.icon}
-            className="me-2 mb-1 difference"
-          />
-          {currentTimer.timeString}
-        </button>
-      </div>
-    </Layout>
+    <div
+      className={`p-4 w-100 min-vh-100 d-flex flex-column ${
+        darkMode ? "bg-dark" : "bg-white"
+      }`}
+    >
+      <Header onChange={handleMode} mode={darkMode} />
+      <main className="col-12 mt-auto mb-auto d-flex justify-content-center">
+        <div className="d-flex flex-column difference text-light">
+          <h1 className="mb-4">{totalTimer.timeString}</h1>
+          <button
+            type="button"
+            className="btn btn-light"
+            onClick={() => setRunning(!running)}
+          >
+            <img
+              src={currentTimer.icon}
+              alt={currentTimer.icon}
+              className="me-2 mb-1 difference"
+            />
+            {currentTimer.timeString}
+          </button>
+        </div>
+      </main>
+    </div>
   );
 }
 
