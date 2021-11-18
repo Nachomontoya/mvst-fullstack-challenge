@@ -62,7 +62,7 @@ function Home(): JSX.Element {
         timeString: secondsToString(data[0].time),
       });
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
   };
 
