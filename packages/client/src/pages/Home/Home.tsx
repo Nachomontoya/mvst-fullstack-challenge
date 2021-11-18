@@ -5,29 +5,46 @@ import play from "../../assets/play_btn.svg";
 import stop from "../../assets/stop_btn.svg";
 
 import { secondsToString } from "../../utils/formater";
-import { getTotalTime } from "../../api/timerApi";
+import { getTotalTime, updateTotalTime } from "../../api/timerApi";
+
+type CurrentTimer = {
+  icon: string;
+  time: number;
+  timeString: string;
+};
+
+type TotalTimer = {
+  timerId: string;
+  time: number;
+  timeString: string;
+};
 
 function Home(): JSX.Element {
   const [running, setRunning] = useState<boolean>(false);
-  const [totalTime, setTotalTime] = useState<string>("00:00:00");
-  const [currentTimer, setCurrentTimer] = useState<string>("00:00:00");
-  const [summatory, setSummatory] = useState<number>(0);
-  const [chronoState, setChronoState] = useState<{
-    icon: string;
-    currentTime: number;
-  }>({
+  const [totalTimer, setTotalTimer] = useState<TotalTimer>({
+    timerId: "",
+    time: 0,
+    timeString: "00:00:00",
+  });
+
+  const [currentTimer, setCurrentTimer] = useState<CurrentTimer>({
     icon: play,
-    currentTime: 0,
+    time: 0,
+    timeString: "00:00:00",
   });
 
   const startChrono = () => {
-    setChronoState((prevState) => {
-      return { icon: prevState.icon, currentTime: prevState.currentTime++ };
+    setCurrentTimer((prevState) => {
+      return { ...currentTimer, icon: stop, time: prevState.time++ };
     });
   };
 
   const stopChrono = () => {
-    setChronoState({ icon: play, currentTime: 0 });
+    setCurrentTimer({
+      icon: play,
+      time: 0,
+      timeString: "00:00:00",
+    });
   };
 
   const loadTotalTime = async () => {
@@ -35,8 +52,11 @@ function Home(): JSX.Element {
       const {
         data: { data },
       } = await getTotalTime();
-      setSummatory(data[0].time);
-      setTotalTime(secondsToString(summatory));
+      setTotalTimer({
+        timerId: data[0]._id,
+        time: data[0].time,
+        timeString: secondsToString(data[0].time),
+      });
     } catch (error) {
       window.alert(error);
     }
@@ -48,47 +68,54 @@ function Home(): JSX.Element {
 
   useEffect(() => {
     if (running) {
-      setChronoState({ ...chronoState, icon: stop });
+      setCurrentTimer({ ...currentTimer, icon: stop });
       const interval: number = window.setInterval(startChrono, 1000);
       return () => {
         clearInterval(interval);
-        // updateTotalTime(interval);
         stopChrono();
       };
     }
     //* this one is acumulating all the timers when the user stops the current timer;
-    setSummatory((prevState) => {
-      return prevState + chronoState.currentTime;
+    setTotalTimer((prevState) => {
+      return {
+        ...totalTimer,
+        time: prevState.time + currentTimer.time,
+      };
     });
-    console.log(chronoState.currentTime); //Seconds when user stops timer;
     //TODO upload timerText to db;
   }, [running]);
 
   useEffect(() => {
-    setCurrentTimer(secondsToString(chronoState.currentTime));
-  }, [chronoState.currentTime]);
+    setCurrentTimer({
+      ...currentTimer,
+      timeString: secondsToString(currentTimer.time),
+    });
+  }, [currentTimer.time]);
 
   useEffect(() => {
     //* this one transform the number into a string to render in a more human mode;
-    setTotalTime(secondsToString(summatory));
-    console.log(summatory); //previous seconds plus new seconds added;
-  }, [summatory]);
+    setTotalTimer({
+      ...totalTimer,
+      timeString: secondsToString(totalTimer.time),
+    });
+    updateTotalTime(totalTimer.time);
+  }, [totalTimer.time]);
 
   return (
     <Layout>
       <div className="d-flex flex-column difference text-light">
-        <h1 className="mb-4">{totalTime}</h1>
+        <h1 className="mb-4">{totalTimer.timeString}</h1>
         <button
           type="button"
           className="btn btn-light"
           onClick={() => setRunning(!running)}
         >
           <img
-            src={chronoState.icon}
-            alt={chronoState.icon}
+            src={currentTimer.icon}
+            alt={currentTimer.icon}
             className="me-2 mb-1 difference"
           />
-          {currentTimer}
+          {currentTimer.timeString}
         </button>
       </div>
     </Layout>

@@ -15,9 +15,8 @@ export async function getTotalTime(
 }
 
 export async function updateTotalTime(
-  id: string,
   seconds: number,
   api: AxiosInstance = makeTimerApi()
 ): Promise<AxiosResponse> {
-  return api.put(`/update/${id}`, seconds);
+  return api.put(`/update`, { timer: seconds });
 }

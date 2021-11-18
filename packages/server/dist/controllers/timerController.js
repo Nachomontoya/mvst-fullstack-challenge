@@ -84,16 +84,13 @@ function getTotalTime(req, res, next) {
 exports.getTotalTime = getTotalTime;
 function updateTotalTime(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var id, timerUpdated, data, error_2;
+        var timer, data, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    id = req.params.id;
-                    timerUpdated = req.body;
-                    return [4 /*yield*/, db.Timer.findByIdAndUpdate(id, timerUpdated, {
-                            new: true,
-                        })];
+                    timer = req.body.timer;
+                    return [4 /*yield*/, db.Timer.findOneAndUpdate({}, { time: timer })];
                 case 1:
                     data = _a.sent();
                     res.status(200).send({ data: data });

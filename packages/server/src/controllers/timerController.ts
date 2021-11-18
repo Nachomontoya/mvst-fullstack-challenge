@@ -19,12 +19,8 @@ async function updateTotalTime(
   next: NextFunction
 ) {
   try {
-    const { id } = req.params;
-    const timerUpdated = req.body;
-    const data = await db.Timer.findByIdAndUpdate(id, timerUpdated, {
-      new: true,
-    });
-
+    const { timer } = req.body;
+    const data = await db.Timer.findOneAndUpdate({}, { time: timer });
     res.status(200).send({ data });
   } catch (error: any) {
     res.status(500).send({

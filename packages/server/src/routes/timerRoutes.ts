@@ -4,4 +4,4 @@ import { Router } from "express";
 export const timerRouter = Router();
 
 timerRouter.get("", timeController.getTotalTime);
-timerRouter.put("/update/:id", timeController.updateTotalTime);
+timerRouter.put("/update", timeController.updateTotalTime);
