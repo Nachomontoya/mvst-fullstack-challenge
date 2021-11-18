@@ -1,0 +1,15 @@
+@import "bootstrap";
+
+.difference {
+  mix-blend-mode: difference;
+}
+
+.form-check-input:checked {
+  background-color: #9c9c9c !important;
+  border: none !important;
+}
+
+.form-check-input:focus {
+  border: none;
+  box-shadow: none !important;
+}
