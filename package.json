@@ -1,0 +1,26 @@
+{
+  "name": "mvst-fullstack-challenge",
+  "version": "1.0.0",
+  "description": "timer application that allows the user to start counting time by clicking  the button on the center of the screen, which also displays the currently tracked time",
+  "main": "./packages/client/index.ts",
+  "repository": "https://github.com/Nachomontoya/mvst-fullstack-challenge.git",
+  "author": "Nachomontoya <montoyanacho@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "client": "yarn workspace client start",
+    "client-build": "yarn workspace client build",
+    "client-test": "yarn workspace client test",
+    "server": "yarn workspace server start",
+    "server-build": "yarn workspace server build",
+    "server-dev": "yarn workspace server dev",
+    "start": "concurrently --kill-others-on-fail \"yarn client\" \"yarn server\"",
+    "dev": "concurrently --kill-others-on-fail \"yarn client\" \"yarn server-dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
