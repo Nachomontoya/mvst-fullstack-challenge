@@ -1,0 +1,1 @@
+export { getTotalTime } from "./timerController";

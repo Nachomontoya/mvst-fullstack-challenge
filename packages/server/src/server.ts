@@ -2,6 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
+import { timerRouter } from "./routes";
 
 export const app = express();
 
@@ -11,6 +12,8 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors());
+
+app.use("/timer", timerRouter);
 
 app.get("/", function (req, res) {
   res.status(200).send({
