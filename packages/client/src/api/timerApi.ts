@@ -13,3 +13,11 @@ export async function getTotalTime(
 ): Promise<AxiosResponse> {
   return api.get(``);
 }
+
+export async function updateTotalTime(
+  id: string,
+  seconds: number,
+  api: AxiosInstance = makeTimerApi()
+): Promise<AxiosResponse> {
+  return api.put(`/update/${id}`, seconds);
+}

@@ -1,1 +1,1 @@
-export { getTotalTime } from "./timerController";
+export * as timeController from "./timerController";

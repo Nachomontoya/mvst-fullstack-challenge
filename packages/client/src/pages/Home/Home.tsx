@@ -30,12 +30,11 @@ function Home(): JSX.Element {
     setChronoState({ icon: play, currentTime: 0 });
   };
 
-  const loadTotalTimer = async () => {
+  const loadTotalTime = async () => {
     try {
       const {
         data: { data },
       } = await getTotalTime();
-      console.log(data[0].time);
       setSummatory(data[0].time);
       setTotalTime(secondsToString(summatory));
     } catch (error) {
@@ -44,7 +43,7 @@ function Home(): JSX.Element {
   };
 
   useEffect(() => {
-    loadTotalTimer();
+    loadTotalTime();
   }, []);
 
   useEffect(() => {
@@ -53,6 +52,7 @@ function Home(): JSX.Element {
       const interval: number = window.setInterval(startChrono, 1000);
       return () => {
         clearInterval(interval);
+        // updateTotalTime(interval);
         stopChrono();
       };
     }
@@ -60,6 +60,7 @@ function Home(): JSX.Element {
     setSummatory((prevState) => {
       return prevState + chronoState.currentTime;
     });
+    console.log(chronoState.currentTime); //Seconds when user stops timer;
     //TODO upload timerText to db;
   }, [running]);
 
@@ -70,7 +71,7 @@ function Home(): JSX.Element {
   useEffect(() => {
     //* this one transform the number into a string to render in a more human mode;
     setTotalTime(secondsToString(summatory));
-    console.log(summatory);
+    console.log(summatory); //previous seconds plus new seconds added;
   }, [summatory]);
 
   return (

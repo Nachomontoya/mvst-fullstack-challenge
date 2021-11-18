@@ -55,7 +55,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTotalTime = void 0;
+exports.updateTotalTime = exports.getTotalTime = void 0;
 var db = __importStar(require("../models"));
 function getTotalTime(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
@@ -82,3 +82,32 @@ function getTotalTime(req, res, next) {
     });
 }
 exports.getTotalTime = getTotalTime;
+function updateTotalTime(req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, timerUpdated, data, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    id = req.params.id;
+                    timerUpdated = req.body;
+                    return [4 /*yield*/, db.Timer.findByIdAndUpdate(id, timerUpdated, {
+                            new: true,
+                        })];
+                case 1:
+                    data = _a.sent();
+                    res.status(200).send({ data: data });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    res.status(500).send({
+                        error: error_2.message,
+                    });
+                    next(error_2);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.updateTotalTime = updateTotalTime;
