@@ -68,16 +68,17 @@ function Home(): JSX.Element {
           time: 0,
           timeString: secondsToString(totalTime[0].totalTime),
         });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response.status === 429) alert(error.response.data);
+      else console.log(error.response.data);
     }
   };
 
   const createNewLog = async () => {
     try {
       await createNewTime(totalTimer.time);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error.response.data);
     }
   };
 
