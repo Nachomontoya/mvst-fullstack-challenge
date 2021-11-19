@@ -13,14 +13,14 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors());
-app.use(
-  rateLimit({
-    windowMs: 60 * 60 * 1000,
-    max: 100,
-    message: "You exceeded 100 requests in an hour limit!",
-    headers: true,
-  })
-);
+// app.use(
+//   rateLimit({
+//     windowMs: 60 * 60 * 1000,
+//     max: 100,
+//     message: "You exceeded 100 requests in an hour limit!",
+//     headers: true,
+//   })
+// );
 
 app.use("/timer", timerRouter);
 

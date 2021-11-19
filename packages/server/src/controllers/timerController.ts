@@ -6,11 +6,12 @@ async function getTotalTime(req: Request, res: Response, next: NextFunction) {
     const totalTime = await db.Timer.aggregate([
       {
         $group: {
-          _id: 1,
-          time: { $sum: "$time" },
+          _id: null,
+          totalTime: { $sum: "$time" },
         },
       },
     ]);
+
     res.status(200).send({ totalTime });
   } catch (error: any) {
     res.status(500).send({
@@ -50,4 +51,16 @@ async function createNewTime(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { getTotalTime, updateTotalTime, createNewTime };
+async function cleanTimers(req: Request, res: Response, next: NextFunction) {
+  try {
+    const newTimer = await db.Timer.deleteMany();
+    res.status(200).send({ newTimer });
+  } catch (error: any) {
+    res.status(500).send({
+      error: error.message,
+    });
+    next(error);
+  }
+}
+
+export { getTotalTime, updateTotalTime, createNewTime, cleanTimers };

@@ -25,5 +25,5 @@ export async function createNewTime(
   seconds: number,
   api: AxiosInstance = makeTimerApi()
 ): Promise<AxiosResponse> {
-  return api.post(`/new`, seconds);
+  return api.post(`/new`, { timer: seconds });
 }

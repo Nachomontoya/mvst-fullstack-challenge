@@ -55,7 +55,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNewTime = exports.updateTotalTime = exports.getTotalTime = void 0;
+exports.cleanTimers = exports.createNewTime = exports.updateTotalTime = exports.getTotalTime = void 0;
 var db = __importStar(require("../models"));
 function getTotalTime(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
@@ -67,8 +67,8 @@ function getTotalTime(req, res, next) {
                     return [4 /*yield*/, db.Timer.aggregate([
                             {
                                 $group: {
-                                    _id: 1,
-                                    time: { $sum: "$time" },
+                                    _id: null,
+                                    totalTime: { $sum: "$time" },
                                 },
                             },
                         ])];
@@ -141,3 +141,28 @@ function createNewTime(req, res, next) {
     });
 }
 exports.createNewTime = createNewTime;
+function cleanTimers(req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var newTimer, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, db.Timer.deleteMany()];
+                case 1:
+                    newTimer = _a.sent();
+                    res.status(200).send({ newTimer: newTimer });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _a.sent();
+                    res.status(500).send({
+                        error: error_4.message,
+                    });
+                    next(error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.cleanTimers = cleanTimers;
