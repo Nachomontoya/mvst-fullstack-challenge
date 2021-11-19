@@ -6,6 +6,7 @@ import stop from "../../assets/stop_btn.svg";
 import { secondsToString } from "../../utils/formater";
 import { createNewTime, getTotalTime } from "../../api/timerApi";
 import Header from "../../components/Header";
+import Loader from "react-loader-spinner";
 
 type CurrentTimer = {
   icon: string;
@@ -21,6 +22,7 @@ type TotalTimer = {
 function Home(): JSX.Element {
   const [darkMode, setDarkMode] = useState(false);
   const [running, setRunning] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [totalTimer, setTotalTimer] = useState<TotalTimer>({
     time: 0,
     timeString: "00:00:00",
@@ -58,6 +60,7 @@ function Home(): JSX.Element {
   };
 
   const loadTotalTime = async () => {
+    setIsLoading(true);
     try {
       const {
         data: { totalTime },
@@ -72,14 +75,17 @@ function Home(): JSX.Element {
       if (error.response.status === 429) alert(error.response.data);
       else console.log(error.response.data);
     }
+    setIsLoading(false);
   };
 
   const createNewLog = async () => {
+    setIsLoading(true);
     try {
       await createNewTime(totalTimer.time);
     } catch (error: any) {
       console.log(error.response.data);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -121,12 +127,19 @@ function Home(): JSX.Element {
     >
       <Header onChange={handleMode} mode={darkMode} />
       <main className="col-12 mt-auto mb-auto d-flex justify-content-center">
-        <div className="d-flex flex-column difference text-light">
-          <h1 className="mb-4">{totalTimer.timeString}</h1>
+        <div className="d-flex flex-column difference text-light h-110">
+          <div className="h-50 d-flex justify-content-center">
+            {isLoading ? (
+              <Loader type="ThreeDots" color="#ffffff" height={44} width={40} />
+            ) : (
+              <h1 className="mb-4">{totalTimer.timeString}</h1>
+            )}
+          </div>
           <button
             type="button"
-            className="btn btn-light"
+            className="btn btn-light w-152"
             onClick={() => setRunning(!running)}
+            disabled={isLoading}
           >
             <img
               src={currentTimer.icon}
