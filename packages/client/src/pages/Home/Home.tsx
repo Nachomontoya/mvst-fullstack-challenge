@@ -43,7 +43,7 @@ function Home(): JSX.Element {
       return {
         ...currentTimer,
         icon: stop,
-        time: prevState.time++,
+        time: prevState.time + 1,
       };
     });
   };
@@ -87,6 +87,19 @@ function Home(): JSX.Element {
   }, []);
 
   useEffect(() => {
+    const interval: NodeJS.Timeout = setInterval(startChrono, 1000);
+    setCurrentTimer({ ...currentTimer, icon: stop });
+    if (!running) {
+      clearInterval(interval);
+      stopChrono();
+      setTotalTimer({ ...totalTimer, time: currentTimer.time });
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [running]);
+
+  useEffect(() => {
     setCurrentTimer({
       ...currentTimer,
       timeString: secondsToString(currentTimer.time),
@@ -99,18 +112,6 @@ function Home(): JSX.Element {
       loadTotalTime();
     }
   }, [totalTimer.time]);
-
-  useEffect(() => {
-    if (running) {
-      setCurrentTimer({ ...currentTimer, icon: stop });
-      const interval: number = window.setInterval(startChrono, 1000);
-      return () => {
-        clearInterval(interval);
-        stopChrono();
-      };
-    }
-    setTotalTimer({ ...totalTimer, time: currentTimer.time });
-  }, [running]);
 
   return (
     <div
