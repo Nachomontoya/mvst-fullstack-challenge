@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const {
-  NODE_ENV = "production",
+  NODE_ENV = "development",
   MONGO_DB_URL_PRODUCTION,
   MONGO_DB_URL_DEVELOPMENT,
   MONGO_DB_URL_TEST,
