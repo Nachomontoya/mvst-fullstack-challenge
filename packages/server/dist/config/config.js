@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.config = void 0;
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-var _a = process.env, _b = _a.NODE_ENV, NODE_ENV = _b === void 0 ? "development" : _b, MONGO_DB_URL_PRODUCTION = _a.MONGO_DB_URL_PRODUCTION, MONGO_DB_URL_DEVELOPMENT = _a.MONGO_DB_URL_DEVELOPMENT, MONGO_DB_URL_TEST = _a.MONGO_DB_URL_TEST, PORT = _a.PORT;
+var _a = process.env, _b = _a.NODE_ENV, NODE_ENV = _b === void 0 ? "production" : _b, MONGO_DB_URL_PRODUCTION = _a.MONGO_DB_URL_PRODUCTION, MONGO_DB_URL_DEVELOPMENT = _a.MONGO_DB_URL_DEVELOPMENT, MONGO_DB_URL_TEST = _a.MONGO_DB_URL_TEST, PORT = _a.PORT;
 var CONFIG = {
     production: {
         app: {

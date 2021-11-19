@@ -55,19 +55,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTotalTime = exports.getTotalTime = void 0;
+exports.createNewTime = exports.updateTotalTime = exports.getTotalTime = void 0;
 var db = __importStar(require("../models"));
 function getTotalTime(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var data, error_1;
+        var totalTime, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, db.Timer.find()];
+                    return [4 /*yield*/, db.Timer.aggregate([
+                            {
+                                $group: {
+                                    _id: 1,
+                                    time: { $sum: "$time" },
+                                },
+                            },
+                        ])];
                 case 1:
-                    data = _a.sent();
-                    res.status(200).send({ data: data });
+                    totalTime = _a.sent();
+                    res.status(200).send({ totalTime: totalTime });
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
@@ -108,3 +115,29 @@ function updateTotalTime(req, res, next) {
     });
 }
 exports.updateTotalTime = updateTotalTime;
+function createNewTime(req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var timer, newTimer, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    timer = req.body.timer;
+                    return [4 /*yield*/, db.Timer.create({ time: timer })];
+                case 1:
+                    newTimer = _a.sent();
+                    res.status(200).send({ newTimer: newTimer });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _a.sent();
+                    res.status(500).send({
+                        error: error_3.message,
+                    });
+                    next(error_3);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.createNewTime = createNewTime;

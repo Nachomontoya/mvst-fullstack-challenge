@@ -3,8 +3,15 @@ import * as db from "../models";
 
 async function getTotalTime(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await db.Timer.find();
-    res.status(200).send({ data });
+    const totalTime = await db.Timer.aggregate([
+      {
+        $group: {
+          _id: 1,
+          time: { $sum: "$time" },
+        },
+      },
+    ]);
+    res.status(200).send({ totalTime });
   } catch (error: any) {
     res.status(500).send({
       error: error.message,
@@ -30,4 +37,17 @@ async function updateTotalTime(
   }
 }
 
-export { getTotalTime, updateTotalTime };
+async function createNewTime(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { timer } = req.body;
+    const newTimer = await db.Timer.create({ time: timer });
+    res.status(200).send({ newTimer });
+  } catch (error: any) {
+    res.status(500).send({
+      error: error.message,
+    });
+    next(error);
+  }
+}
+
+export { getTotalTime, updateTotalTime, createNewTime };

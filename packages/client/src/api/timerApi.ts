@@ -20,3 +20,10 @@ export async function updateTotalTime(
 ): Promise<AxiosResponse> {
   return api.put(`/update`, { timer: seconds });
 }
+
+export async function createNewTime(
+  seconds: number,
+  api: AxiosInstance = makeTimerApi()
+): Promise<AxiosResponse> {
+  return api.post(`/new`, seconds);
+}
