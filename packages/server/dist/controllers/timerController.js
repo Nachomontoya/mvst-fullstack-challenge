@@ -55,7 +55,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllTimers = exports.cleanTimers = exports.createNewTime = exports.updateTotalTime = exports.getTotalTime = void 0;
+exports.getAllTimers = exports.createNewTime = exports.getTotalTime = void 0;
 var db = __importStar(require("../models"));
 function getAllTimers(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
@@ -116,35 +116,9 @@ function getTotalTime(req, res, next) {
     });
 }
 exports.getTotalTime = getTotalTime;
-function updateTotalTime(req, res, next) {
-    return __awaiter(this, void 0, void 0, function () {
-        var timer, data, error_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    timer = req.body.timer;
-                    return [4 /*yield*/, db.Timer.findOneAndUpdate({}, { time: timer })];
-                case 1:
-                    data = _a.sent();
-                    res.status(200).send({ data: data });
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_3 = _a.sent();
-                    res.status(500).send({
-                        error: error_3.message,
-                    });
-                    next(error_3);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.updateTotalTime = updateTotalTime;
 function createNewTime(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var timer, newTimer, error_4;
+        var timer, newTimer, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -158,11 +132,11 @@ function createNewTime(req, res, next) {
                         .send({ message: "New timer successfully created", newTimer: newTimer });
                     return [3 /*break*/, 3];
                 case 2:
-                    error_4 = _a.sent();
+                    error_3 = _a.sent();
                     res.status(500).send({
-                        error: error_4.message,
+                        error: error_3.message,
                     });
-                    next(error_4);
+                    next(error_3);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -170,28 +144,3 @@ function createNewTime(req, res, next) {
     });
 }
 exports.createNewTime = createNewTime;
-function cleanTimers(req, res, next) {
-    return __awaiter(this, void 0, void 0, function () {
-        var newTimer, error_5;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, db.Timer.deleteMany()];
-                case 1:
-                    newTimer = _a.sent();
-                    res.status(200).send({ newTimer: newTimer });
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_5 = _a.sent();
-                    res.status(500).send({
-                        error: error_5.message,
-                    });
-                    next(error_5);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.cleanTimers = cleanTimers;

@@ -35,23 +35,6 @@ async function getTotalTime(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function updateTotalTime(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  try {
-    const { timer } = req.body;
-    const data = await db.Timer.findOneAndUpdate({}, { time: timer });
-    res.status(200).send({ data: data });
-  } catch (error: any) {
-    res.status(500).send({
-      error: error.message,
-    });
-    next(error);
-  }
-}
-
 async function createNewTime(req: Request, res: Response, next: NextFunction) {
   try {
     const { timer } = req.body;
@@ -67,22 +50,4 @@ async function createNewTime(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function cleanTimers(req: Request, res: Response, next: NextFunction) {
-  try {
-    const newTimer = await db.Timer.deleteMany();
-    res.status(200).send({ newTimer });
-  } catch (error: any) {
-    res.status(500).send({
-      error: error.message,
-    });
-    next(error);
-  }
-}
-
-export {
-  getTotalTime,
-  updateTotalTime,
-  createNewTime,
-  cleanTimers,
-  getAllTimers,
-};
+export { getTotalTime, createNewTime, getAllTimers };
