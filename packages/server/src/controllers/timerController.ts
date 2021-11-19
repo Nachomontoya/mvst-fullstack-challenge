@@ -1,6 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import * as db from "../models";
 
+async function getAllTimers(req: Request, res: Response, next: NextFunction) {
+  try {
+    const timers = await db.Timer.find();
+    res.status(200).send({ message: "All Timers Loaded", timers });
+  } catch (error: any) {
+    res.status(500).send({
+      error: error.message,
+    });
+    next(error);
+  }
+}
+
 async function getTotalTime(req: Request, res: Response, next: NextFunction) {
   try {
     const totalTime = await db.Timer.aggregate([
@@ -12,7 +24,9 @@ async function getTotalTime(req: Request, res: Response, next: NextFunction) {
       },
     ]);
 
-    res.status(200).send({ totalTime });
+    res
+      .status(200)
+      .send({ message: "Total time summarized and loaded", totalTime });
   } catch (error: any) {
     res.status(500).send({
       error: error.message,
@@ -29,7 +43,7 @@ async function updateTotalTime(
   try {
     const { timer } = req.body;
     const data = await db.Timer.findOneAndUpdate({}, { time: timer });
-    res.status(200).send({ data });
+    res.status(200).send({ data: data });
   } catch (error: any) {
     res.status(500).send({
       error: error.message,
@@ -42,7 +56,9 @@ async function createNewTime(req: Request, res: Response, next: NextFunction) {
   try {
     const { timer } = req.body;
     const newTimer = await db.Timer.create({ time: timer });
-    res.status(200).send({ newTimer });
+    res
+      .status(200)
+      .send({ message: "New timer successfully created", newTimer });
   } catch (error: any) {
     res.status(500).send({
       error: error.message,
@@ -63,4 +79,10 @@ async function cleanTimers(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export { getTotalTime, updateTotalTime, createNewTime, cleanTimers };
+export {
+  getTotalTime,
+  updateTotalTime,
+  createNewTime,
+  cleanTimers,
+  getAllTimers,
+};
