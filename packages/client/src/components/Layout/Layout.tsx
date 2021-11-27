@@ -1,12 +1,13 @@
 import React from "react";
+import { ChildrenProps } from "../../utils/types";
 import Header from "../Header";
-import ThemeToggle from "../ThemeToggle";
+import Main from "../Main";
 
-function Layout(): React.ReactElement {
+function Layout({ children }: ChildrenProps): React.ReactElement {
   return (
     <>
       <Header />
-      <ThemeToggle />
+      <Main>{children}</Main>
     </>
   );
 }
