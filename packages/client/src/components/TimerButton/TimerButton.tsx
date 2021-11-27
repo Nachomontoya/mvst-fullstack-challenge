@@ -38,9 +38,12 @@ function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
       timeString: "00:00:00",
     });
     createNewLog(timerBtn.time);
-    setAccTime({
-      time: timerBtn.time,
-      timeString: secondsToString(timerBtn.time),
+    setAccTime((prevState) => {
+      console.log(prevState);
+      return {
+        time: prevState.time + timerBtn.time,
+        timeString: secondsToString(prevState.time + timerBtn.time),
+      };
     });
   };
 

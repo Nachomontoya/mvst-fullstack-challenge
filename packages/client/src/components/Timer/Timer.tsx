@@ -31,20 +31,6 @@ function Timer(): React.ReactElement {
     setIsLoading(false);
   };
 
-  // useEffect(() => {
-  //   setTimerBtn({
-  //     ...timerBtn,
-  //     timeString: secondsToString(timerBtn.time),
-  //   });
-  // }, [currentTimer.time]);
-
-  // useEffect(() => {
-  //   if (totalTimer.time > 0) {
-  //     createNewLog();
-  //     loadTotalTime();
-  //   }
-  // }, [totalTimer.time]);
-
   useEffect(() => {
     loadTotalTime();
   }, []);

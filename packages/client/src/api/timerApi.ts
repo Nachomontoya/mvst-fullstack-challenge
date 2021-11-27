@@ -9,21 +9,14 @@ export function makeTimerApi(): AxiosInstance {
 }
 
 export async function getTotalTime(
-  api: AxiosInstance = makeTimerApi()
+  api: AxiosInstance = makeTimerApi(),
 ): Promise<AxiosResponse> {
   return api.get(``);
 }
 
-export async function updateTotalTime(
-  seconds: number,
-  api: AxiosInstance = makeTimerApi()
-): Promise<AxiosResponse> {
-  return api.put(`/update`, { timer: seconds });
-}
-
 export async function createNewTime(
   seconds: number,
-  api: AxiosInstance = makeTimerApi()
+  api: AxiosInstance = makeTimerApi(),
 ): Promise<AxiosResponse> {
   return api.post(`/new`, { timer: seconds });
 }
