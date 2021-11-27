@@ -5,9 +5,9 @@ import stop from "../../assets/stop_btn.svg";
 
 import { secondsToString } from "../../utils/formater";
 import { createNewTime } from "../../api/timerApi";
-import { CurrentTimer } from "../../utils/types";
+import { CurrentTimer, SetAccumulatedTime } from "../../utils/types";
 
-function TimerButton(): React.ReactElement {
+function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
   const [isLoading, setIsLoading] = useState(false);
   const [running, setRunning] = useState<boolean>(false);
   const [timerBtn, setTimerBtn] = useState<CurrentTimer>({
@@ -38,6 +38,10 @@ function TimerButton(): React.ReactElement {
       timeString: "00:00:00",
     });
     createNewLog(timerBtn.time);
+    setAccTime({
+      time: timerBtn.time,
+      timeString: secondsToString(timerBtn.time),
+    });
   };
 
   const handleRunning = () => {

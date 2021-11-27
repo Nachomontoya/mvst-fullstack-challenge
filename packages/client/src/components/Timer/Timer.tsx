@@ -3,8 +3,9 @@ import Loader from "react-loader-spinner";
 import { getTotalTime } from "../../api/timerApi";
 import { secondsToString } from "../../utils/formater";
 import { AccTime } from "../../utils/types";
+import TimerButton from "../TimerButton";
 
-function TotalTime(): React.ReactElement {
+function Timer(): React.ReactElement {
   const [isLoading, setIsLoading] = useState(false);
   const [accTime, setAccTime] = useState<AccTime>({
     time: 0,
@@ -28,19 +29,36 @@ function TotalTime(): React.ReactElement {
     setIsLoading(false);
   };
 
+  // useEffect(() => {
+  //   setTimerBtn({
+  //     ...timerBtn,
+  //     timeString: secondsToString(timerBtn.time),
+  //   });
+  // }, [currentTimer.time]);
+
+  // useEffect(() => {
+  //   if (totalTimer.time > 0) {
+  //     createNewLog();
+  //     loadTotalTime();
+  //   }
+  // }, [totalTimer.time]);
+
   useEffect(() => {
     loadTotalTime();
   }, []);
 
   return (
-    <div className="h-50 d-flex justify-content-center">
-      {isLoading ? (
-        <Loader type="ThreeDots" color="#ffffff" height={44} width={40} />
-      ) : (
-        <h1 className="mb-4">{accTime.timeString}</h1>
-      )}
-    </div>
+    <>
+      <div className="h-50 d-flex justify-content-center">
+        {isLoading ? (
+          <Loader type="ThreeDots" color="#ffffff" height={44} width={40} />
+        ) : (
+          <h1 className="mb-4">{accTime.timeString}</h1>
+        )}
+      </div>
+      <TimerButton setAccTime={setAccTime} />
+    </>
   );
 }
 
-export default TotalTime;
+export default Timer;
