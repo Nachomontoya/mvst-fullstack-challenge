@@ -1,8 +1,7 @@
-import { timeController } from "../controllers";
+import { timerController } from "../controllers";
 import { Router } from "express";
 
 export const timerRouter = Router();
 
-timerRouter.get("", timeController.getTotalTime);
-timerRouter.get("/all", timeController.getAllTimers);
-timerRouter.post("/new", timeController.createNewTime);
+timerRouter.get("", timerController.getTotalTime);
+timerRouter.post("/new", timerController.createNewTimeLog);

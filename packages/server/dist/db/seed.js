@@ -58,21 +58,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.seedTimer = void 0;
+exports.seedTotalTimer = exports.seedTimerLog = void 0;
 var db = __importStar(require("../models"));
-var timerSeed_1 = __importDefault(require("./timerSeed"));
-function seedTimer() {
+var timerLogSeed_1 = __importDefault(require("./timerLogSeed"));
+var totalTimerSeed_1 = __importDefault(require("./totalTimerSeed"));
+function seedTimerLog() {
     return __awaiter(this, void 0, void 0, function () {
         var results;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, timerSeed_1.default)()];
+                case 0: return [4 /*yield*/, (0, timerLogSeed_1.default)()];
                 case 1:
                     results = _a.sent();
-                    return [4 /*yield*/, db.Timer.deleteMany({})];
+                    return [4 /*yield*/, db.TimerLog.deleteMany({})];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, db.Timer.create(results)];
+                    return [4 /*yield*/, db.TimerLog.create(results)];
                 case 3:
                     _a.sent();
                     return [2 /*return*/];
@@ -80,4 +81,24 @@ function seedTimer() {
         });
     });
 }
-exports.seedTimer = seedTimer;
+exports.seedTimerLog = seedTimerLog;
+function seedTotalTimer() {
+    return __awaiter(this, void 0, void 0, function () {
+        var results;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, totalTimerSeed_1.default)()];
+                case 1:
+                    results = _a.sent();
+                    return [4 /*yield*/, db.TotalTimer.deleteMany({})];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, db.TotalTimer.create(results)];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.seedTotalTimer = seedTotalTimer;

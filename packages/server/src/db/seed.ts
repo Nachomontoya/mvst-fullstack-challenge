@@ -1,10 +1,18 @@
 import * as db from "../models";
 
-import getSeedTimer from "./timerSeed";
+import getSeedTimerLog from "./timerLogSeed";
+import getSeedTotalTimer from "./totalTimerSeed";
 
-export async function seedTimer() {
-  const results = await getSeedTimer();
+export async function seedTimerLog() {
+  const results = await getSeedTimerLog();
 
-  await db.Timer.deleteMany({});
-  await db.Timer.create(results);
+  await db.TimerLog.deleteMany({});
+  await db.TimerLog.create(results);
+}
+
+export async function seedTotalTimer() {
+  const results = await getSeedTotalTimer();
+
+  await db.TotalTimer.deleteMany({});
+  await db.TotalTimer.create(results);
 }

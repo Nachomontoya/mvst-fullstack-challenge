@@ -19,5 +19,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.timerController = void 0;
-exports.timerController = __importStar(require("./timerController"));
+exports.TotalTimer = void 0;
+var mongoose_1 = __importStar(require("mongoose"));
+var totalTimerSchema = new mongoose_1.Schema({
+    totalTime: {
+        type: Number,
+        trim: true,
+        required: [true, "time is required"],
+    },
+}, {
+    timestamps: true,
+});
+exports.TotalTimer = mongoose_1.default.model("total-timer", totalTimerSchema);

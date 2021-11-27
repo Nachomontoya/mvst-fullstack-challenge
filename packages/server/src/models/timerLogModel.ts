@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const timerSchema = new Schema(
+const timerLogSchema = new Schema(
   {
     time: {
       type: Number,
@@ -10,7 +10,7 @@ const timerSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export const Timer = mongoose.model("timer", timerSchema);
+export const TimerLog = mongoose.model("timer-log", timerLogSchema);

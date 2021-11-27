@@ -18,10 +18,12 @@ function Timer(): React.ReactElement {
       const {
         data: { totalTime },
       } = await getTotalTime();
-      setAccTime({
-        time: totalTime[0].totalTime,
-        timeString: secondsToString(totalTime[0].totalTime),
-      });
+      if (totalTime.length) {
+        setAccTime({
+          time: totalTime[0]?.totalTime,
+          timeString: secondsToString(totalTime[0]?.totalTime),
+        });
+      }
     } catch (error: any) {
       if (error.response?.status === 429) alert(error.response?.data);
       else console.log(error.response?.data);

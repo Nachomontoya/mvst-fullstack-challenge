@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Timer = void 0;
-var timerModel_1 = require("./timerModel");
-Object.defineProperty(exports, "Timer", { enumerable: true, get: function () { return timerModel_1.Timer; } });
+exports.TotalTimer = exports.TimerLog = void 0;
+var timerLogModel_1 = require("./timerLogModel");
+Object.defineProperty(exports, "TimerLog", { enumerable: true, get: function () { return timerLogModel_1.TimerLog; } });
+var totalTimerModel_1 = require("./totalTimerModel");
+Object.defineProperty(exports, "TotalTimer", { enumerable: true, get: function () { return totalTimerModel_1.TotalTimer; } });

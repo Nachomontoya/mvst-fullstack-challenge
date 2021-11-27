@@ -1,1 +1,2 @@
-export { Timer } from "./timerModel";
+export { TimerLog } from "./timerLogModel";
+export { TotalTimer } from "./totalTimerModel";

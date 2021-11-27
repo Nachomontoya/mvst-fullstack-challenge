@@ -1,1 +1,1 @@
-export * as timeController from "./timerController";
+export * as timerController from "./timerController";

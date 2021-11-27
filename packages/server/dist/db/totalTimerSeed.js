@@ -36,21 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var server_1 = require("./server");
-var config_1 = require("./config");
-var connect_1 = require("./db/connect");
-var seed_1 = require("./db/seed");
-(0, connect_1.connect)()
-    .then(function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        server_1.app.listen(config_1.config.app.port, function () {
-            console.log("Server running at port ".concat(config_1.config.app.port));
+function getSeedTotalTimer() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, {
+                    totalTime: 4,
+                }];
         });
-        (0, seed_1.seedTimerLog)();
-        (0, seed_1.seedTotalTimer)();
-        return [2 /*return*/];
     });
-}); })
-    .catch(function (err) {
-    console.log(err);
-});
+}
+exports.default = getSeedTotalTimer;

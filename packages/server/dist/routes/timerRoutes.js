@@ -4,6 +4,5 @@ exports.timerRouter = void 0;
 var controllers_1 = require("../controllers");
 var express_1 = require("express");
 exports.timerRouter = (0, express_1.Router)();
-exports.timerRouter.get("", controllers_1.timeController.getTotalTime);
-exports.timerRouter.get("/all", controllers_1.timeController.getAllTimers);
-exports.timerRouter.post("/new", controllers_1.timeController.createNewTime);
+exports.timerRouter.get("", controllers_1.timerController.getTotalTime);
+exports.timerRouter.post("/new", controllers_1.timerController.createNewTimeLog);

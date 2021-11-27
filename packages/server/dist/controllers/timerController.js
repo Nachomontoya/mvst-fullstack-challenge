@@ -55,19 +55,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllTimers = exports.createNewTime = exports.getTotalTime = void 0;
+exports.createNewTimeLog = exports.getTotalTime = void 0;
 var db = __importStar(require("../models"));
-function getAllTimers(req, res, next) {
+function getTotalTime(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var timers, error_1;
+        var totalTime, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, db.Timer.find()];
+                    return [4 /*yield*/, db.TotalTimer.find()];
                 case 1:
-                    timers = _a.sent();
-                    res.status(200).send({ message: "All Timers Loaded", timers: timers });
+                    totalTime = _a.sent();
+                    res
+                        .status(200)
+                        .send({ message: "Total time summarized and loaded", totalTime: totalTime });
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
@@ -81,27 +83,21 @@ function getAllTimers(req, res, next) {
         });
     });
 }
-exports.getAllTimers = getAllTimers;
-function getTotalTime(req, res, next) {
+exports.getTotalTime = getTotalTime;
+function createNewTimeLog(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var totalTime, error_2;
+        var timer, newTimer, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, db.Timer.aggregate([
-                            {
-                                $group: {
-                                    _id: null,
-                                    totalTime: { $sum: "$time" },
-                                },
-                            },
-                        ])];
+                    timer = req.body.timer;
+                    return [4 /*yield*/, db.TimerLog.create({ time: timer })];
                 case 1:
-                    totalTime = _a.sent();
+                    newTimer = _a.sent();
                     res
                         .status(200)
-                        .send({ message: "Total time summarized and loaded", totalTime: totalTime });
+                        .send({ message: "New timer successfully created", newTimer: newTimer });
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();
@@ -115,32 +111,4 @@ function getTotalTime(req, res, next) {
         });
     });
 }
-exports.getTotalTime = getTotalTime;
-function createNewTime(req, res, next) {
-    return __awaiter(this, void 0, void 0, function () {
-        var timer, newTimer, error_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    timer = req.body.timer;
-                    return [4 /*yield*/, db.Timer.create({ time: timer })];
-                case 1:
-                    newTimer = _a.sent();
-                    res
-                        .status(200)
-                        .send({ message: "New timer successfully created", newTimer: newTimer });
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_3 = _a.sent();
-                    res.status(500).send({
-                        error: error_3.message,
-                    });
-                    next(error_3);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.createNewTime = createNewTime;
+exports.createNewTimeLog = createNewTimeLog;
