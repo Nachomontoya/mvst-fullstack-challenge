@@ -5,12 +5,11 @@ export type ReduxState = {
 };
 
 export type CurrentTimer = {
-  icon: string;
   time: number;
   timeString: string;
 };
 
-export type TotalTime = {
+export type AccTime = {
   time: number;
   timeString: string;
 };
