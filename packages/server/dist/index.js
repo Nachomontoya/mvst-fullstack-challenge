@@ -39,15 +39,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var server_1 = require("./server");
 var config_1 = require("./config");
 var connect_1 = require("./db/connect");
-var seed_1 = require("./db/seed");
+// import { seedTimerLog, seedTotalTimer } from "./db/seed";
 (0, connect_1.connect)()
     .then(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         server_1.app.listen(config_1.config.app.port, function () {
             console.log("Server running at port ".concat(config_1.config.app.port));
         });
-        (0, seed_1.seedTimerLog)();
-        (0, seed_1.seedTotalTimer)();
         return [2 /*return*/];
     });
 }); })

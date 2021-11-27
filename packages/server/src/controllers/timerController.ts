@@ -4,9 +4,23 @@ import * as db from "../models";
 async function getTotalTime(req: Request, res: Response, next: NextFunction) {
   try {
     const totalTime = await db.TotalTimer.find();
-    res
-      .status(200)
-      .send({ message: "Total time summarized and loaded", totalTime });
+    res.status(200).send({ message: "Total time loaded", totalTime });
+  } catch (error: any) {
+    res.status(500).send({
+      error: error.message,
+    });
+    next(error);
+  }
+}
+
+async function updateTotalTime(
+  newTime: number,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    await db.TotalTimer.findOneAndUpdate({}, { $inc: { totalTime: newTime } });
+    res.status(200).send({ message: "Total time succesfully updated" });
   } catch (error: any) {
     res.status(500).send({
       error: error.message,
@@ -23,6 +37,7 @@ async function createNewTimeLog(
   try {
     const { timer } = req.body;
     const newTimer = await db.TimerLog.create({ time: timer });
+    updateTotalTime(timer, res, next);
     res
       .status(200)
       .send({ message: "New timer successfully created", newTimer });

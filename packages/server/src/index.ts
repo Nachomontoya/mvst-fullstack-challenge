@@ -2,7 +2,7 @@ import { app } from "./server";
 import { config } from "./config";
 import { connect } from "./db/connect";
 
-import { seedTimerLog, seedTotalTimer } from "./db/seed";
+// import { seedTimerLog, seedTotalTimer } from "./db/seed";
 
 connect()
   .then(async () => {
@@ -10,8 +10,8 @@ connect()
       console.log(`Server running at port ${config.app.port}`);
     });
 
-    seedTimerLog();
-    seedTotalTimer();
+    // seedTimerLog();
+    // seedTotalTimer();
   })
   .catch((err) => {
     console.log(err);

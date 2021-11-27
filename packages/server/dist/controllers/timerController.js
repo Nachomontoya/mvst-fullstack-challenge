@@ -67,9 +67,7 @@ function getTotalTime(req, res, next) {
                     return [4 /*yield*/, db.TotalTimer.find()];
                 case 1:
                     totalTime = _a.sent();
-                    res
-                        .status(200)
-                        .send({ message: "Total time summarized and loaded", totalTime: totalTime });
+                    res.status(200).send({ message: "Total time loaded", totalTime: totalTime });
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
@@ -84,9 +82,33 @@ function getTotalTime(req, res, next) {
     });
 }
 exports.getTotalTime = getTotalTime;
+function updateTotalTime(newTime, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, db.TotalTimer.findOneAndUpdate({}, { $inc: { totalTime: newTime } })];
+                case 1:
+                    _a.sent();
+                    res.status(200).send({ message: "Total time succesfully updated" });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    res.status(500).send({
+                        error: error_2.message,
+                    });
+                    next(error_2);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 function createNewTimeLog(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var timer, newTimer, error_2;
+        var timer, newTimer, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -95,16 +117,17 @@ function createNewTimeLog(req, res, next) {
                     return [4 /*yield*/, db.TimerLog.create({ time: timer })];
                 case 1:
                     newTimer = _a.sent();
+                    updateTotalTime(timer, res, next);
                     res
                         .status(200)
                         .send({ message: "New timer successfully created", newTimer: newTimer });
                     return [3 /*break*/, 3];
                 case 2:
-                    error_2 = _a.sent();
+                    error_3 = _a.sent();
                     res.status(500).send({
-                        error: error_2.message,
+                        error: error_3.message,
                     });
-                    next(error_2);
+                    next(error_3);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
