@@ -4,6 +4,7 @@ import { getTotalTime } from "../../api/timerApi";
 import { secondsToString } from "../../utils/formater";
 import { AccTime } from "../../utils/types";
 import TimerButton from "../TimerButton";
+import { toast } from "react-toastify";
 
 function Timer(): React.ReactElement {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,9 +25,16 @@ function Timer(): React.ReactElement {
           timeString: secondsToString(totalTime[0]?.totalTime),
         });
       }
-    } catch (error: any) {
-      if (error.response?.status === 429) alert(error.response?.data);
-      else console.log(error.response?.data);
+    } catch (error) {
+      let errorMessage: string;
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else {
+        errorMessage = String(error);
+      }
+      toast(errorMessage, {
+        type: "error",
+      });
     }
     setIsLoading(false);
   };

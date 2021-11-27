@@ -6,6 +6,7 @@ import stop from "../../assets/stop_btn.svg";
 import { secondsToString } from "../../utils/formater";
 import { createNewTime } from "../../api/timerApi";
 import { CurrentTimer, SetAccumulatedTime } from "../../utils/types";
+import { toast } from "react-toastify";
 
 function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,8 +20,16 @@ function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
     setIsLoading(true);
     try {
       await createNewTime(time);
-    } catch (error: any) {
-      console.log(error.response.data);
+    } catch (error) {
+      let errorMessage: string;
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else {
+        errorMessage = String(error);
+      }
+      toast(errorMessage, {
+        type: "error",
+      });
     }
     setIsLoading(false);
   };
