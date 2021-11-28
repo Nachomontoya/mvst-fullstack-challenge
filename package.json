@@ -19,6 +19,7 @@
     "server-test": "yarn workspace server test",
     "server-dev": "yarn workspace server dev",
     "start": "concurrently --kill-others-on-fail \"yarn client\" \"yarn server\"",
+    "build": "concurrently --kill-others-on-fail \"yarn client-build\" \"yarn server-build\"",
     "dev": "concurrently --kill-others-on-fail \"yarn client\" \"yarn server-dev\"",
     "test": "concurrently --kill-others-on-fail \"yarn client-test\" \"yarn server-test\""
   },
