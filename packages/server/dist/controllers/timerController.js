@@ -71,9 +71,11 @@ function getTotalTime(req, res, next) {
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
-                    res.status(500).send({
-                        error: error_1.message,
-                    });
+                    if (error_1 instanceof Error) {
+                        res.status(500).send({
+                            error: error_1.message,
+                        });
+                    }
                     next(error_1);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
@@ -96,9 +98,11 @@ function updateTotalTime(newTime, res, next) {
                     return [3 /*break*/, 3];
                 case 2:
                     error_2 = _a.sent();
-                    res.status(500).send({
-                        error: error_2.message,
-                    });
+                    if (error_2 instanceof Error) {
+                        res.status(500).send({
+                            error: error_2.message,
+                        });
+                    }
                     next(error_2);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
@@ -124,9 +128,11 @@ function createNewTimeLog(req, res, next) {
                     return [3 /*break*/, 3];
                 case 2:
                     error_3 = _a.sent();
-                    res.status(500).send({
-                        error: error_3.message,
-                    });
+                    if (error_3 instanceof Error) {
+                        res.status(500).send({
+                            error: error_3.message,
+                        });
+                    }
                     next(error_3);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
