@@ -46,16 +46,16 @@ function Timer(): React.ReactElement {
 
   return (
     <motion.div
-      className="d-flex flex-column difference text-light h-110"
+      className="d-flex flex-column difference h-95"
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <div className="h-50 d-flex justify-content-center">
+      <div className="h-100 d-flex justify-content-center">
         {isLoading ? (
-          <Loader type="ThreeDots" color="#ffffff" height={44} width={40} />
+          <Loader type="ThreeDots" color="#d4d4d4" height={44} width={40} />
         ) : (
-          <h1 className="mb-4">{accTime.timeString}</h1>
+          <h1 className="fnt-light-gray">{accTime.timeString}</h1>
         )}
       </div>
       <TimerButton setAccTime={setAccTime} />

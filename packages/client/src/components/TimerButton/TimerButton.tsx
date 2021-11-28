@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { styled } from "@mui/material/styles";
+import Button, { ButtonProps } from "@mui/material/Button";
 
 import play from "../../assets/play_btn.svg";
 import stop from "../../assets/stop_btn.svg";
@@ -6,7 +9,6 @@ import stop from "../../assets/stop_btn.svg";
 import { secondsToString } from "../../utils/formater";
 import { createNewTime } from "../../api/timerApi";
 import { CurrentTimer, SetAccumulatedTime } from "../../utils/types";
-import { toast } from "react-toastify";
 
 function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
   const [isLoading, setIsLoading] = useState(false);
@@ -73,21 +75,33 @@ function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
     };
   }, [running]);
 
+  const ColorButton = styled(Button)<ButtonProps>(() => ({
+    color: "#000",
+    backgroundColor: "#d4d4d4",
+    "&:hover": {
+      backgroundColor: "#b7b7b7",
+    },
+    fontFamily: "inherit",
+    fontSize: "16px",
+    fontWeight: 400,
+  }));
+
   return (
     <>
-      <button
-        type="button"
-        className="btn btn-light w-152"
+      <ColorButton
+        variant="contained"
+        startIcon={
+          <img
+            src={running ? stop : play}
+            alt={running ? "stop" : "play"}
+            className=" difference"
+          />
+        }
         onClick={handleRunning}
         disabled={isLoading}
       >
-        <img
-          src={running ? stop : play}
-          alt={running ? "stop" : "play"}
-          className="me-2 mb-1 difference"
-        />
         {timerBtn.timeString}
-      </button>
+      </ColorButton>
     </>
   );
 }
