@@ -1,19 +1,19 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MVST Challenge",
+  "name": "MVST timer challenge by Nacho Montoya",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://www.mvst.co/favicon-32x32.png?v=fafb6108d3c59902108248208c8fdeb9",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
+      "src": "https://www.mvst.co/icons/icon-192x192.png?v=fafb6108d3c59902108248208c8fdeb9",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "https://www.mvst.co/icons/icon-512x512.png?v=fafb6108d3c59902108248208c8fdeb9",
       "type": "image/png",
       "sizes": "512x512"
     }
