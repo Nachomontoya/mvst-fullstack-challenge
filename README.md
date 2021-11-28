@@ -17,7 +17,7 @@ There is also a switch to toggle between light and dark mode.
   - [🔮 Future improvements](#-future-improvements)
   - [💬 Feedback](#-feedback)
   - [🕵️‍♂️ Technologies used](#️️-technologies-used)
-  - [Extra features](#extra-features)
+  - [✨ Extra features](#-extra-features)
 
 ## 🚀 How to run the app.
 
@@ -58,14 +58,17 @@ PORT=4000
     ├───client
     │   ├───public
     │   └───src
+    │       ├───__test__	<i>//Front End tests </i> <b>//V2 </b>
     │       ├───api		<i>//Call to external APIs </i>
     │       ├───assets		<i>//svg resources </i>
     │       ├───components
     │       ├───constants
     │       ├───pages
+    │       ├───api		<b>//V2 </b>
     │       └───utils		<i>// Reusable code </i>
     └───server
         └───src
+            ├───__test__  
             ├───config		<i>// configuration read from .env </i>
             ├───controllers
             ├───db
@@ -75,13 +78,16 @@ PORT=4000
 
 ## 💊 How to run the test suite
 
-I have set tests just for the server side of the app. Considering there are too little elements on the front to test them I test the get endpoints of the API.
+~~I have set tests just for the server side of the app. Considering there are too little elements on the front to test them I test the get endpoints of the API.~~
+
+<b>V2:
+The tests for this project have been updated. Now, there are tests on the client side and on the server side. On client side, tests check if the components of the app are rendering properly. Regarding the server side, they check the get and post methods of the API are working properly (the post test method creates a new log and update the total time, so it test also the updating.)
+</b>
 
 To run these tests you will have to type on the root of the project:
 
 ```
-$	yarn server-test
-
+$ yarn test
 ```
 
 ## 🔮 Future improvements
@@ -89,36 +95,47 @@ $	yarn server-test
 In the future, I would be adding, next:
 
 - Transitions for the dark mode
-- Spinners for when data is loading
-- Modals or toasts to render the error messages. As an API protection I have added a rate limit stablished to a maximum of 100 requests per hour. Right now, this error message will appear as an alert.
+- ~~Spinners for when data is loading~~
+- ~~Modals or toasts to render the error messages. As an API protection I have added a rate limit stablished to a maximum of 100 requests per hour. Right now, this error message will appear as an alert.~~
 - Containerise the app.
 - There was a football game that I played when I was a child with a casio timer. I would really love to reproduce it here and create a game.
-- Better types for the typescript
+- ~~Better types for the typescript~~
 
 ## 💬 Feedback
 
 This challenge have been a bit challeging for being the first time I have used Typescript. I think comming from Javascript, it is a really good technology to learn and a quick one.
 
-Regarding the server side, and apart from typescript, it's been an easy application with just three endpoints and without middlewares. At the beggining I created more endpoints so I could update and delete some logs easily.
+~~Regarding the server side, and apart from typescript, it's been an easy application with just three endpoints and without middlewares. At the beggining I created more endpoints so I could update and delete some logs easily.~~
 
-Regarding the client side, I added a Header component and rendered the rest of the app just in a home page. It would have been nice to use React Router to limit the urls and create, for example, a 404 page.
+~~Regarding the client side, I added a Header component and rendered the rest of the app just in a home page. It would have been nice to use React Router to limit the urls and create, for example, a 404 page.~~
+
+<b>V2:</b>
+Regarding the server side, apart from the fact of using Typescript, it's been an easy application. In the controller folder there have been added three functions and just two HTTP methods. The first of them `GET` the total time stored in a document of the databes. The second method `POST` a new timer log and update the total time incrementing it with the time of the new log using a mongoose method.
+
+Regarding the client side. The elements of the application have been divided into components so they can be reused if it is necessary without having to write more code. This way, there are components for Header, Layout, Main, ThemeToggle, Timer and TimerButton. Also, I have added redux to pass the info of the theme mode (light or dark) through the components without having to pass it by props.
 
 ## 🕵️‍♂️ Technologies used
 
 - [Axios](https://github.com/axios/axios)
-- [Eslint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
+- [React](https://es.reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [React Toastify](https://www.npmjs.com/package/react-toastify)
+- [React Helmet Async](https://www.npmjs.com/package/react-helmet-async)
+- [Bootstrap](https://getbootstrap.com/)
+- [Sass](https://sass-lang.com/)
+- [Material UI](https://mui.com/)
 - [Express](https://expressjs.com/)
+- [Express Rate Limit](https://www.npmjs.com/package/express-rate-limit)
 - [MongoDB](https://www.mongodb.com/)
 - [Mongoose](https://mongoosejs.com/)
 - [Nodemon](https://nodemon.io/)
 - [Jest](https://jestjs.io/es-ES/)
-- [React](https://es.reactjs.org/)
-- [Bootstrap](https://getbootstrap.com/)
-- [Sass](https://sass-lang.com/)
+- [Prettier](https://prettier.io/)
+- [Eslint](https://eslint.org/)
 - [Typescript](https://www.typescriptlang.org/)
 
-## Extra features
+## ✨ Extra features
 
 Deployment:
 
@@ -126,6 +143,6 @@ Deployment:
 
 - The deploy for the front is made at my personal server, you can run the app at [this URL](https://mvst-challenge.nachomontoya.es/)
 
-API Secrity:
+API Security:
 
 - Rate Limit set up to 100 requests per hour.
