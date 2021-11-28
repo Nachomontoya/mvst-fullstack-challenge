@@ -46,6 +46,7 @@ function Timer(): React.ReactElement {
 
   return (
     <motion.div
+      className="d-flex flex-column difference text-light h-110"
       initial={{ y: 50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1 }}
