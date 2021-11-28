@@ -83,6 +83,11 @@ function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
     fontFamily: "inherit",
     fontSize: "16px",
     fontWeight: 400,
+    "&:disabled": {
+      backgroundColor: "#d4d4d4",
+      opacity: 0.3,
+      cursor: "wait",
+    },
   }));
 
   return (
