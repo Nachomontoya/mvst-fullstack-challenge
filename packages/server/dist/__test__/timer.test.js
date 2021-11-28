@@ -14,4 +14,18 @@ describe("Backend 'Timer' api testing", function () {
             throw err;
         });
     });
+    test("POST / Create a new time log", function () {
+        return requestApi
+            .post("/new")
+            .send({ timer: 2 })
+            .expect("Content-Type", /json/)
+            .expect(200)
+            .then(function (response) {
+            expect(response.body.message).toBe("New timer successfully created and total time updated");
+        })
+            .catch(function (err) {
+            console.log(err);
+            throw err;
+        });
+    });
 });

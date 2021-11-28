@@ -5,33 +5,17 @@ async function getTotalTime(req: Request, res: Response, next: NextFunction) {
   try {
     const totalTime = await db.TotalTimer.find();
     res.status(200).send({ message: "Total time loaded", totalTime });
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send({
-        error: error.message,
-      });
-    }
+  } catch (error: any) {
+    res.status(500).send({
+      error: error.message,
+    });
     next(error);
   }
 }
 
-async function updateTotalTime(
-  newTime: number,
-  res: Response,
-  next: NextFunction,
-) {
-  try {
-    await db.TotalTimer.findOneAndUpdate({}, { $inc: { totalTime: newTime } });
-    res.status(200).send({ message: "Total time succesfully updated" });
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send({
-        error: error.message,
-      });
-    }
-    next(error);
-  }
-}
+// async function updateTotalTime(newTime: number) {
+//   await db.TotalTimer.findOneAndUpdate({}, { $inc: { totalTime: newTime } });
+// }
 
 async function createNewTimeLog(
   req: Request,
@@ -41,16 +25,16 @@ async function createNewTimeLog(
   try {
     const { timer } = req.body;
     const newTimer = await db.TimerLog.create({ time: timer });
-    updateTotalTime(timer, res, next);
-    res
-      .status(200)
-      .send({ message: "New timer successfully created", newTimer });
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send({
-        error: error.message,
-      });
-    }
+    await db.TotalTimer.findOneAndUpdate({}, { $inc: { totalTime: timer } });
+    // await updateTotalTime(timer);
+    res.status(200).send({
+      message: "New timer successfully created and total time updated",
+      newTimer,
+    });
+  } catch (error: any) {
+    res.status(500).send({
+      error: error.message,
+    });
     next(error);
   }
 }
