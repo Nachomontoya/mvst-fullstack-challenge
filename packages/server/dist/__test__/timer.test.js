@@ -1,6 +1,10 @@
 "use strict";
-var request = require("supertest");
-var requestApi = request("http://localhost:4000/timer");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var supertest_1 = __importDefault(require("supertest"));
+var requestApi = (0, supertest_1.default)("http://localhost:4000/timer");
 describe("Backend 'Timer' api testing", function () {
     test("GET / Get Total time", function () {
         return requestApi
@@ -24,7 +28,6 @@ describe("Backend 'Timer' api testing", function () {
             expect(response.body.message).toBe("New timer successfully created and total time updated");
         })
             .catch(function (err) {
-            console.log(err);
             throw err;
         });
     });

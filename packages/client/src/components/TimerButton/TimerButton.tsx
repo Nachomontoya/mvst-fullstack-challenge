@@ -50,7 +50,6 @@ function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
     });
     createNewLog(timerBtn.time);
     setAccTime((prevState) => {
-      console.log(prevState);
       return {
         time: prevState.time + timerBtn.time,
         timeString: secondsToString(prevState.time + timerBtn.time),

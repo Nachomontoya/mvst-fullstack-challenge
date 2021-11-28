@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var server_1 = require("./server");
 var config_1 = require("./config");
 var connect_1 = require("./db/connect");
-// import { seedTimerLog, seedTotalTimer } from "./db/seed";
 (0, connect_1.connect)()
     .then(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
