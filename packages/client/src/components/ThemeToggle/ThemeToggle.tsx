@@ -17,7 +17,10 @@ function ThemeToggle(): React.ReactElement {
   };
 
   return (
-    <div className="d-flex justify-content-between gap-1">
+    <div
+      className="d-flex justify-content-between gap-1"
+      data-testid="switch-test"
+    >
       <img src={sun} alt="light mode" className="difference" />
       <div className="form-check form-switch p-0">
         <input

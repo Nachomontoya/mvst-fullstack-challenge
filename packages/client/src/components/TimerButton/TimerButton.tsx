@@ -99,6 +99,7 @@ function TimerButton({ setAccTime }: SetAccumulatedTime): React.ReactElement {
         }
         onClick={handleRunning}
         disabled={isLoading}
+        data-testid="timer-btn"
       >
         {timerBtn.timeString}
       </ColorButton>
