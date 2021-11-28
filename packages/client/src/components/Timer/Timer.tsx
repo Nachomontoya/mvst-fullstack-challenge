@@ -5,6 +5,7 @@ import { secondsToString } from "../../utils/formater";
 import { AccTime } from "../../utils/types";
 import TimerButton from "../TimerButton";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 function Timer(): React.ReactElement {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +45,11 @@ function Timer(): React.ReactElement {
   }, []);
 
   return (
-    <>
+    <motion.div
+      initial={{ y: 50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
       <div className="h-50 d-flex justify-content-center">
         {isLoading ? (
           <Loader type="ThreeDots" color="#ffffff" height={44} width={40} />
@@ -53,7 +58,7 @@ function Timer(): React.ReactElement {
         )}
       </div>
       <TimerButton setAccTime={setAccTime} />
-    </>
+    </motion.div>
   );
 }
 
