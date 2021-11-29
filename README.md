@@ -112,7 +112,7 @@ This challenge have been a bit challeging for being the first time I have used T
 <b>V2:</b>
 Regarding the server side, apart from the fact of using Typescript, it's been an easy application. In the controller folder there have been added three functions and just two HTTP methods. The first of them `GET` the total time stored in a document of the databes. The second method `POST` a new timer log and update the total time incrementing it with the time of the new log using a mongoose method.
 
-Regarding the client side. The elements of the application have been divided into components so they can be reused if it is necessary without having to write more code. This way, there are components for Header, Layout, Main, ThemeToggle, Timer and TimerButton. Also, I have added redux to pass the info of the theme mode (light or dark) through the components without having to pass it by props.
+Regarding the client side. The elements of the application have been divided into components so they can be reused if it is necessary without having to write more code. This way, there are components for Header, Layout, Main, ThemeToggle, Timer and TimerButton. Also, I have added redux to pass the info of the theme mode (light or dark) through the components without having to pass it by props, this redux state is storaged at LocalStorage so the browser remembers your last theme mode configuration and loads it.
 
 ## 🕵️‍♂️ Technologies used
 
